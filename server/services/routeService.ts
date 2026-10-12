@@ -3,7 +3,7 @@
  * Implements Dijkstra's and Breadth-First-Search (BFS) pathfinding across multimodal metro networks.
  */
 
-import { inMemoryDB, Station, StationConnection, MetroLine } from '../db/connection.js';
+import { Network, Station, MetroLine, calculateFare } from '../network.js';
 
 export interface RouteSegment {
   fromStation: Station;
@@ -43,10 +43,10 @@ interface GraphNode {
 }
 
 export class RoutePlanningService {
-  private buildGraph(): Map<number, GraphNode> {
+  private buildGraph(network: Network): Map<number, GraphNode> {
     const graph = new Map<number, GraphNode>();
 
-    for (const station of inMemoryDB.stations) {
+    for (const station of network.stations) {
       if (station.status !== 'inactive') {
         graph.set(station.station_id, {
           stationId: station.station_id,
@@ -55,7 +55,7 @@ export class RoutePlanningService {
       }
     }
 
-    for (const conn of inMemoryDB.station_connections) {
+    for (const conn of network.connections) {
       const node = graph.get(conn.from_station_id);
       if (node && graph.has(conn.to_station_id)) {
         node.edges.push({
@@ -74,6 +74,7 @@ export class RoutePlanningService {
    * Search routes between source and destination stations
    */
   public searchRoutes(
+    network: Network,
     sourceStationId: number,
     destStationId: number,
     passengerCount: number = 1,
@@ -83,14 +84,14 @@ export class RoutePlanningService {
       throw new Error('Source and destination stations cannot be the same');
     }
 
-    const source = inMemoryDB.stations.find((s) => s.station_id === sourceStationId);
-    const dest = inMemoryDB.stations.find((s) => s.station_id === destStationId);
+    const source = network.stations.find((s) => s.station_id === sourceStationId);
+    const dest = network.stations.find((s) => s.station_id === destStationId);
 
     if (!source || !dest) {
       throw new Error('Selected station not found in metro network');
     }
 
-    const graph = this.buildGraph();
+    const graph = this.buildGraph(network);
 
     // 1. Find optimal path by Minimum Travel Time (Dijkstra)
     const fastestPath = this.dijkstra(graph, sourceStationId, destStationId, 'time');
@@ -117,7 +118,7 @@ export class RoutePlanningService {
       if (seenSignatures.has(signature) && results.length > 0) continue;
       seenSignatures.add(signature);
 
-      const routeOption = this.constructRouteOption(path, type, label, source, dest, passengerCount);
+      const routeOption = this.constructRouteOption(network, path, type, label, source, dest, passengerCount);
       results.push(routeOption);
     }
 
@@ -125,6 +126,7 @@ export class RoutePlanningService {
   }
 
   private constructRouteOption(
+    network: Network,
     stationIds: number[],
     optType: 'fastest' | 'least_transfers' | 'fewest_stops',
     label: string,
@@ -132,7 +134,7 @@ export class RoutePlanningService {
     dest: Station,
     passengerCount: number
   ): RouteOption {
-    const pathStations: Station[] = stationIds.map((id) => inMemoryDB.stations.find((s) => s.station_id === id)!);
+    const pathStations: Station[] = stationIds.map((id) => network.stations.find((s) => s.station_id === id)!);
     const segments: RouteSegment[] = [];
     let totalMinutes = 0;
     let totalKm = 0;
@@ -146,7 +148,7 @@ export class RoutePlanningService {
       const toId = stationIds[i + 1];
 
       // Find connection
-      const conn = inMemoryDB.station_connections.find(
+      const conn = network.connections.find(
         (c) => c.from_station_id === fromId && c.to_station_id === toId
       ) || {
         travel_minutes: 3,
@@ -154,9 +156,9 @@ export class RoutePlanningService {
         line_id: 1,
       };
 
-      const fromSt = inMemoryDB.stations.find((s) => s.station_id === fromId)!;
-      const toSt = inMemoryDB.stations.find((s) => s.station_id === toId)!;
-      const line = inMemoryDB.metro_lines.find((l) => l.line_id === conn.line_id)!;
+      const fromSt = network.stations.find((s) => s.station_id === fromId)!;
+      const toSt = network.stations.find((s) => s.station_id === toId)!;
+      const line = network.lines.find((l) => l.line_id === conn.line_id)!;
 
       linesUsedSet.add(conn.line_id);
 
@@ -179,11 +181,11 @@ export class RoutePlanningService {
     }
 
     const linesUsed: MetroLine[] = Array.from(linesUsedSet).map(
-      (id) => inMemoryDB.metro_lines.find((l) => l.line_id === id)!
+      (id) => network.lines.find((l) => l.line_id === id)!
     );
 
     const totalStops = stationIds.length - 1;
-    const fareCalc = inMemoryDB.sp_calculate_fare(source.station_id, dest.station_id, passengerCount, 'stop_based');
+    const fareCalc = calculateFare(network, source.station_id, dest.station_id, passengerCount, 'stop_based');
 
     return {
       routeId: `RT-${source.station_code}-${dest.station_code}-${optType}`,

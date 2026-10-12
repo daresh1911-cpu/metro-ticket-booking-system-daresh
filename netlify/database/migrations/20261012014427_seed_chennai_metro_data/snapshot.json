@@ -1,0 +1,2006 @@
+{
+  "id": "8f216329-eed9-4b48-8ed4-633ef4c81632",
+  "prevIds": [
+    "c3df20f1-b6d8-4814-86a4-49812001d349"
+  ],
+  "version": "8",
+  "dialect": "postgres",
+  "ddl": [
+    {
+      "isRlsEnabled": false,
+      "name": "audit_logs",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "booking_status_history",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "bookings",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "cancellations",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "fare_rules",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "line_stations",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "metro_lines",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "payments",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "schedules",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "station_connections",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "stations",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "tickets",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "trains",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "users",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "log_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "audit_logs"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "user_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "audit_logs"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "action",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "audit_logs"
+    },
+    {
+      "type": "varchar(50)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "entity_type",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "audit_logs"
+    },
+    {
+      "type": "varchar(50)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "entity_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "audit_logs"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "details",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "audit_logs"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "audit_logs"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "history_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "booking_status_history"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "booking_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "booking_status_history"
+    },
+    {
+      "type": "varchar(30)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "previous_status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "booking_status_history"
+    },
+    {
+      "type": "varchar(30)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "new_status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "booking_status_history"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "changed_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "booking_status_history"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "changed_by",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "booking_status_history"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "booking_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "varchar(32)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "booking_reference",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "user_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "schedule_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "source_station_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "destination_station_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "date",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "travel_date",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "1",
+      "generated": null,
+      "identity": null,
+      "name": "passenger_count",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "fare_per_passenger",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "total_fare",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'confirmed'",
+      "generated": null,
+      "identity": null,
+      "name": "booking_status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "idempotency_key",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "cancellation_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "cancellations"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "booking_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "cancellations"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'User requested cancellation'",
+      "generated": null,
+      "identity": null,
+      "name": "cancellation_reason",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "cancellations"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "refund_amount",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "cancellations"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'processed'",
+      "generated": null,
+      "identity": null,
+      "name": "refund_status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "cancellations"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "cancelled_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "cancellations"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "fare_rule_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'stop_based'",
+      "generated": null,
+      "identity": null,
+      "name": "pricing_method",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "10",
+      "generated": null,
+      "identity": null,
+      "name": "base_fare",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "2.5",
+      "generated": null,
+      "identity": null,
+      "name": "per_stop_rate",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "3",
+      "generated": null,
+      "identity": null,
+      "name": "per_km_rate",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "concession_discount_percent",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "date",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "effective_from",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "date",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "effective_until",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'active'",
+      "generated": null,
+      "identity": null,
+      "name": "status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "fare_rules"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "line_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "line_stations"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "station_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "line_stations"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "sequence_no",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "line_stations"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "1.5",
+      "generated": null,
+      "identity": null,
+      "name": "distance_from_previous_km",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "line_stations"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "line_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "metro_lines"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "line_name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "metro_lines"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "line_code",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "metro_lines"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "line_color",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "metro_lines"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'active'",
+      "generated": null,
+      "identity": null,
+      "name": "status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "metro_lines"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "metro_lines"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "payment_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "payments"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "booking_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "payments"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "amount",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "payments"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "payment_method",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "payments"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'completed'",
+      "generated": null,
+      "identity": null,
+      "name": "payment_status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "payments"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "provider_reference",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "payments"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "paid_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "payments"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "schedule_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "schedules"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "train_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "schedules"
+    },
+    {
+      "type": "time",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "departure_time",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "schedules"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "direction",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "schedules"
+    },
+    {
+      "type": "date",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "operating_start_date",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "schedules"
+    },
+    {
+      "type": "date",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "operating_end_date",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "schedules"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'active'",
+      "generated": null,
+      "identity": null,
+      "name": "status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "schedules"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "schedules"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "connection_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "from_station_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "to_station_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "3",
+      "generated": null,
+      "identity": null,
+      "name": "travel_minutes",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "1.5",
+      "generated": null,
+      "identity": null,
+      "name": "distance_km",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "line_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "station_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "stations"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "station_name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "stations"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "station_code",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "stations"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "latitude",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "stations"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "longitude",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "stations"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'active'",
+      "generated": null,
+      "identity": null,
+      "name": "status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "stations"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "name": "is_interchange",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "stations"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "stations"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "ticket_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "tickets"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "booking_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "tickets"
+    },
+    {
+      "type": "varchar(128)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "verification_token_hash",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "tickets"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'valid'",
+      "generated": null,
+      "identity": null,
+      "name": "ticket_status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "tickets"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "issued_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "tickets"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "train_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "trains"
+    },
+    {
+      "type": "varchar(50)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "train_code",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "trains"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "line_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "trains"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "300",
+      "generated": null,
+      "identity": null,
+      "name": "capacity",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "trains"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'active'",
+      "generated": null,
+      "identity": null,
+      "name": "status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "trains"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "trains"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "user_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "users"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "full_name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "users"
+    },
+    {
+      "type": "varchar(150)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "email",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "users"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "phone",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "users"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "password_hash",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "users"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'passenger'",
+      "generated": null,
+      "identity": null,
+      "name": "role",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "users"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'active'",
+      "generated": null,
+      "identity": null,
+      "name": "account_status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "users"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "users"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "idx_bookings_user",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "travel_date",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "idx_bookings_date",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "from_station_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "to_station_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "idx_conn_from_to",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "users",
+      "columnsTo": [
+        "user_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "name": "audit_logs_user_id_users_user_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "audit_logs"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "booking_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "bookings",
+      "columnsTo": [
+        "booking_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "booking_status_history_booking_id_bookings_booking_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "booking_status_history"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "changed_by"
+      ],
+      "schemaTo": "public",
+      "tableTo": "users",
+      "columnsTo": [
+        "user_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "name": "booking_status_history_changed_by_users_user_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "booking_status_history"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "users",
+      "columnsTo": [
+        "user_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "bookings_user_id_users_user_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "schedule_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "schedules",
+      "columnsTo": [
+        "schedule_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "name": "bookings_schedule_id_schedules_schedule_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "source_station_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "stations",
+      "columnsTo": [
+        "station_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "bookings_source_station_id_stations_station_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "destination_station_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "stations",
+      "columnsTo": [
+        "station_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "bookings_destination_station_id_stations_station_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "bookings"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "booking_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "bookings",
+      "columnsTo": [
+        "booking_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "cancellations_booking_id_bookings_booking_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "cancellations"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "line_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "metro_lines",
+      "columnsTo": [
+        "line_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "line_stations_line_id_metro_lines_line_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "line_stations"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "station_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "stations",
+      "columnsTo": [
+        "station_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "line_stations_station_id_stations_station_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "line_stations"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "booking_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "bookings",
+      "columnsTo": [
+        "booking_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "payments_booking_id_bookings_booking_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "payments"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "train_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "trains",
+      "columnsTo": [
+        "train_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "schedules_train_id_trains_train_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "schedules"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "from_station_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "stations",
+      "columnsTo": [
+        "station_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "station_connections_from_station_id_stations_station_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "to_station_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "stations",
+      "columnsTo": [
+        "station_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "station_connections_to_station_id_stations_station_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "line_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "metro_lines",
+      "columnsTo": [
+        "line_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "station_connections_line_id_metro_lines_line_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "station_connections"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "booking_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "bookings",
+      "columnsTo": [
+        "booking_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "tickets_booking_id_bookings_booking_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "tickets"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "line_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "metro_lines",
+      "columnsTo": [
+        "line_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "trains_line_id_metro_lines_line_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "trains"
+    },
+    {
+      "columns": [
+        "line_id",
+        "station_id"
+      ],
+      "nameExplicit": false,
+      "name": "line_stations_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "line_stations"
+    },
+    {
+      "columns": [
+        "log_id"
+      ],
+      "nameExplicit": false,
+      "name": "audit_logs_pkey",
+      "schema": "public",
+      "table": "audit_logs",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "history_id"
+      ],
+      "nameExplicit": false,
+      "name": "booking_status_history_pkey",
+      "schema": "public",
+      "table": "booking_status_history",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "booking_id"
+      ],
+      "nameExplicit": false,
+      "name": "bookings_pkey",
+      "schema": "public",
+      "table": "bookings",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "cancellation_id"
+      ],
+      "nameExplicit": false,
+      "name": "cancellations_pkey",
+      "schema": "public",
+      "table": "cancellations",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "fare_rule_id"
+      ],
+      "nameExplicit": false,
+      "name": "fare_rules_pkey",
+      "schema": "public",
+      "table": "fare_rules",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "line_id"
+      ],
+      "nameExplicit": false,
+      "name": "metro_lines_pkey",
+      "schema": "public",
+      "table": "metro_lines",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "payment_id"
+      ],
+      "nameExplicit": false,
+      "name": "payments_pkey",
+      "schema": "public",
+      "table": "payments",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "schedule_id"
+      ],
+      "nameExplicit": false,
+      "name": "schedules_pkey",
+      "schema": "public",
+      "table": "schedules",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "connection_id"
+      ],
+      "nameExplicit": false,
+      "name": "station_connections_pkey",
+      "schema": "public",
+      "table": "station_connections",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "station_id"
+      ],
+      "nameExplicit": false,
+      "name": "stations_pkey",
+      "schema": "public",
+      "table": "stations",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "ticket_id"
+      ],
+      "nameExplicit": false,
+      "name": "tickets_pkey",
+      "schema": "public",
+      "table": "tickets",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "train_id"
+      ],
+      "nameExplicit": false,
+      "name": "trains_pkey",
+      "schema": "public",
+      "table": "trains",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "user_id"
+      ],
+      "nameExplicit": false,
+      "name": "users_pkey",
+      "schema": "public",
+      "table": "users",
+      "entityType": "pks"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "line_id",
+        "sequence_no"
+      ],
+      "nullsNotDistinct": false,
+      "name": "uq_line_sequence",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "line_stations"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "booking_reference"
+      ],
+      "nullsNotDistinct": false,
+      "name": "bookings_booking_reference_key",
+      "schema": "public",
+      "table": "bookings",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "idempotency_key"
+      ],
+      "nullsNotDistinct": false,
+      "name": "bookings_idempotency_key_key",
+      "schema": "public",
+      "table": "bookings",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "booking_id"
+      ],
+      "nullsNotDistinct": false,
+      "name": "cancellations_booking_id_key",
+      "schema": "public",
+      "table": "cancellations",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "line_code"
+      ],
+      "nullsNotDistinct": false,
+      "name": "metro_lines_line_code_key",
+      "schema": "public",
+      "table": "metro_lines",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "provider_reference"
+      ],
+      "nullsNotDistinct": false,
+      "name": "payments_provider_reference_key",
+      "schema": "public",
+      "table": "payments",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "station_code"
+      ],
+      "nullsNotDistinct": false,
+      "name": "stations_station_code_key",
+      "schema": "public",
+      "table": "stations",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "booking_id"
+      ],
+      "nullsNotDistinct": false,
+      "name": "tickets_booking_id_key",
+      "schema": "public",
+      "table": "tickets",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "train_code"
+      ],
+      "nullsNotDistinct": false,
+      "name": "trains_train_code_key",
+      "schema": "public",
+      "table": "trains",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "email"
+      ],
+      "nullsNotDistinct": false,
+      "name": "users_email_key",
+      "schema": "public",
+      "table": "users",
+      "entityType": "uniques"
+    }
+  ],
+  "renames": []
+}
