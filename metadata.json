@@ -1,0 +1,6 @@
+{
+  "name": "MetroX 3D — Smart Metro Reservation & Management System",
+  "description": "Futuristic 3D metro reservation platform featuring interactive 3D station network, intelligent route planner, fare calculation engine, electronic QR tickets, and administrative analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
