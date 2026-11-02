@@ -26,6 +26,7 @@ import {
 import { NetworkStation } from './3d/MetroNetwork3D.js';
 import { TicketData, TicketView } from './TicketView.js';
 import { UserSession } from './Navbar.js';
+import { useTheme } from '../context/ThemeContext.js';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -268,14 +269,21 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const destStation = stations.find((s) => s.station_id === destId);
   const totalAmount = fareData?.total_fare || (passengerCount * 25);
 
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-xl bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+      <div className={`relative w-full max-w-xl border rounded-2xl p-6 sm:p-8 shadow-2xl my-8 transition-colors ${
+        isDark ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-white border-slate-200 text-slate-900'
+      }`}>
         {/* Close Button */}
         <button
           onClick={onClose}
           disabled={paymentProcessing}
-          className="absolute top-5 right-5 text-slate-400 hover:text-slate-200 disabled:opacity-40 transition-colors p-1 rounded-lg hover:bg-slate-800"
+          className={`absolute top-5 right-5 disabled:opacity-40 transition-colors p-1 rounded-lg ${
+            isDark ? 'text-slate-400 hover:text-slate-200 hover:bg-slate-800' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'
+          }`}
           aria-label="Close booking modal"
         >
           <X className="w-5 h-5" />
@@ -286,15 +294,15 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <div>
             {/* Step Indicator Header */}
             <div className="mb-6">
-              <div className="flex items-center justify-between text-xs text-slate-400 mb-2 font-medium">
-                <span className={step === 1 ? 'text-cyan-400 font-bold' : 'text-slate-300'}>
+              <div className="flex items-center justify-between text-xs mb-2 font-medium">
+                <span className={step === 1 ? 'text-cyan-500 font-bold' : (isDark ? 'text-slate-400' : 'text-slate-500')}>
                   1. Journey & Passengers
                 </span>
-                <span className={step === 2 ? 'text-cyan-400 font-bold' : 'text-slate-500'}>
+                <span className={step === 2 ? 'text-cyan-500 font-bold' : (isDark ? 'text-slate-600' : 'text-slate-400')}>
                   2. Payment & Confirmation
                 </span>
               </div>
-              <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className={`w-full h-1.5 rounded-full overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-200'}`}>
                 <div
                   className="bg-cyan-500 h-full transition-all duration-300 rounded-full"
                   style={{ width: `${(step / 2) * 100}%` }}
@@ -314,10 +322,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             {step === 1 && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold font-display text-white">
+                  <h3 className={`text-lg font-bold font-display ${isDark ? 'text-white' : 'text-slate-900'}`}>
                     Select Chennai Metro Journey
                   </h3>
-                  <span className="text-[11px] font-mono text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/60">
+                  <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${
+                    isDark ? 'text-cyan-400 bg-cyan-950/60 border-cyan-800/60' : 'text-cyan-700 bg-cyan-50 border-cyan-200'
+                  }`}>
                     CMRL Network
                   </span>
                 </div>
@@ -745,12 +755,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <div>
             {confirmedTicket && (
               <div className="space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                  <div className="flex items-center gap-2 text-emerald-400">
+                <div className={`flex items-center justify-between pb-3 border-b ${
+                  isDark ? 'border-slate-800' : 'border-slate-200'
+                }`}>
+                  <div className="flex items-center gap-2 text-emerald-500">
                     <CheckCircle2 className="w-5 h-5" />
-                    <span className="font-bold text-sm text-white">Payment Confirmed & Ticket Issued</span>
+                    <span className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                      Payment Confirmed & Ticket Issued
+                    </span>
                   </div>
-                  <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/80">
+                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                    isDark
+                      ? 'text-emerald-300 bg-emerald-950/60 border-emerald-800/80'
+                      : 'text-emerald-800 bg-emerald-50 border-emerald-300'
+                  }`}>
                     STATUS: VALID
                   </span>
                 </div>
@@ -771,7 +789,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       setStep(1);
                       setConfirmedTicket(null);
                     }}
-                    className="w-1/2 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all"
+                    className={`w-1/2 py-2.5 rounded-xl text-xs font-semibold transition-all border ${
+                      isDark
+                        ? 'bg-slate-800 hover:bg-slate-700 border-slate-700 text-slate-200'
+                        : 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800'
+                    }`}
                   >
                     Book Another Journey
                   </button>

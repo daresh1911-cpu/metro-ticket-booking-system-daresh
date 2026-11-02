@@ -212,8 +212,9 @@ class InMemoryRelationalDB {
     this.nextUserId = 4;
 
     this.metro_lines = [
-      { line_id: 1, line_name: 'Blue Line (Corridor 1: Washermanpet to Chennai Airport)', line_code: 'L1', line_color: '#0284c7', status: 'active' },
+      { line_id: 1, line_name: 'Blue Line (Corridor 1: Wimco Nagar Depot to Chennai Airport)', line_code: 'L1', line_color: '#0284c7', status: 'active' },
       { line_id: 2, line_name: 'Green Line (Corridor 2: Chennai Central to St. Thomas Mount)', line_code: 'L2', line_color: '#10b981', status: 'active' },
+      { line_id: 3, line_name: 'Orange Line (Corridor 4: Poonamallee Bypass to Vadapalani)', line_code: 'L4', line_color: '#f97316', status: 'active' },
     ];
 
     this.stations = [
@@ -244,7 +245,7 @@ class InMemoryRelationalDB {
       { station_id: 22, station_name: 'Thirumangalam Metro', station_code: 'TMG', latitude: 13.0855, longitude: 80.1990, status: 'active', is_interchange: false },
       { station_id: 23, station_name: 'Koyambedu Metro', station_code: 'KYM', latitude: 13.0730, longitude: 80.1950, status: 'active', is_interchange: false },
       { station_id: 24, station_name: 'Puratchi Thalaivi Dr. J. Jayalalithaa CMBT Metro', station_code: 'CBT', latitude: 13.0694, longitude: 80.1948, status: 'active', is_interchange: false },
-      { station_id: 25, station_name: 'Vadapalani Metro', station_code: 'VAD', latitude: 13.0504, longitude: 80.2121, status: 'active', is_interchange: false },
+      { station_id: 25, station_name: 'Vadapalani Metro', station_code: 'VAD', latitude: 13.0504, longitude: 80.2121, status: 'active', is_interchange: true },
       { station_id: 26, station_name: 'Ashok Nagar Metro', station_code: 'ASH', latitude: 13.0360, longitude: 80.2116, status: 'active', is_interchange: false },
       { station_id: 27, station_name: 'St. Thomas Mount Metro', station_code: 'STM', latitude: 12.9950, longitude: 80.1985, status: 'active', is_interchange: false },
 
@@ -265,6 +266,17 @@ class InMemoryRelationalDB {
       { station_id: 39, station_name: 'Tiruvottriyur Metro', station_code: 'TVT', latitude: 13.1600, longitude: 80.3005, status: 'active', is_interchange: false },
       { station_id: 40, station_name: 'Wimco Nagar Metro', station_code: 'WMN', latitude: 13.1695, longitude: 80.3015, status: 'active', is_interchange: false },
       { station_id: 41, station_name: 'Wimco Nagar Depot Metro', station_code: 'WND', latitude: 13.1790, longitude: 80.3060, status: 'active', is_interchange: false },
+
+      // 5. Orange Line (Corridor 4 Priority Phase 2 Extension: Poonamallee to Vadapalani Interchange)
+      { station_id: 42, station_name: 'Poonamallee Bypass Metro', station_code: 'PBP', latitude: 13.0540, longitude: 80.0760, status: 'active', is_interchange: false },
+      { station_id: 43, station_name: 'Poonamallee Bus Terminus Metro', station_code: 'PMT', latitude: 13.0515, longitude: 80.0890, status: 'active', is_interchange: false },
+      { station_id: 44, station_name: 'Karayanchavadi Metro', station_code: 'KRC', latitude: 13.0498, longitude: 80.1012, status: 'active', is_interchange: false },
+      { station_id: 45, station_name: 'Kumananchavadi Metro', station_code: 'KMN', latitude: 13.0475, longitude: 80.1118, status: 'active', is_interchange: false },
+      { station_id: 46, station_name: 'Kattupakkam Metro', station_code: 'KTP', latitude: 13.0428, longitude: 80.1265, status: 'active', is_interchange: false },
+      { station_id: 47, station_name: 'Iyyappanthangal Metro', station_code: 'IYP', latitude: 13.0378, longitude: 80.1415, status: 'active', is_interchange: false },
+      { station_id: 48, station_name: 'Porur Bypass Metro', station_code: 'POR', latitude: 13.0335, longitude: 80.1583, status: 'active', is_interchange: false },
+      { station_id: 49, station_name: 'Alwarthirunagar Metro', station_code: 'ATN', latitude: 13.0392, longitude: 80.1691, status: 'active', is_interchange: false },
+      { station_id: 50, station_name: 'Valasaravakkam Metro', station_code: 'VSK', latitude: 13.0416, longitude: 80.1772, status: 'active', is_interchange: false },
     ];
 
     this.line_stations = [
@@ -314,6 +326,18 @@ class InMemoryRelationalDB {
       { line_id: 2, station_id: 31, sequence_no: 15, distance_from_previous_km: 1.60 },
       { line_id: 2, station_id: 14, sequence_no: 16, distance_from_previous_km: 2.10 },
       { line_id: 2, station_id: 27, sequence_no: 17, distance_from_previous_km: 1.30 },
+
+      // Corridor 4: Orange Line (Sequence 1 to 10: Poonamallee Bypass ↔ Vadapalani Interchange)
+      { line_id: 3, station_id: 42, sequence_no: 1, distance_from_previous_km: 0.00 },
+      { line_id: 3, station_id: 43, sequence_no: 2, distance_from_previous_km: 1.40 },
+      { line_id: 3, station_id: 44, sequence_no: 3, distance_from_previous_km: 1.30 },
+      { line_id: 3, station_id: 45, sequence_no: 4, distance_from_previous_km: 1.20 },
+      { line_id: 3, station_id: 46, sequence_no: 5, distance_from_previous_km: 1.50 },
+      { line_id: 3, station_id: 47, sequence_no: 6, distance_from_previous_km: 1.60 },
+      { line_id: 3, station_id: 48, sequence_no: 7, distance_from_previous_km: 1.70 },
+      { line_id: 3, station_id: 49, sequence_no: 8, distance_from_previous_km: 1.20 },
+      { line_id: 3, station_id: 50, sequence_no: 9, distance_from_previous_km: 1.10 },
+      { line_id: 3, station_id: 25, sequence_no: 10, distance_from_previous_km: 2.10 },
     ];
 
     // Build comprehensive bidirectional connections for graph pathfinding
@@ -356,6 +380,12 @@ class InMemoryRelationalDB {
     ];
     addPathEdges(greenLineStations, 2, 3, 1.5);
 
+    // Orange Line sequence (Corridor 4)
+    const orangeLineStations = [
+      42, 43, 44, 45, 46, 47, 48, 49, 50, 25
+    ];
+    addPathEdges(orangeLineStations, 3, 2, 1.4);
+
     this.station_connections = conns;
 
     this.trains = [
@@ -363,6 +393,8 @@ class InMemoryRelationalDB {
       { train_id: 2, train_code: 'CMRL-BLUE-02', line_id: 1, capacity: 400, status: 'active' },
       { train_id: 3, train_code: 'CMRL-GREEN-01', line_id: 2, capacity: 350, status: 'active' },
       { train_id: 4, train_code: 'CMRL-GREEN-02', line_id: 2, capacity: 350, status: 'active' },
+      { train_id: 5, train_code: 'CMRL-ORANGE-01', line_id: 3, capacity: 350, status: 'active' },
+      { train_id: 6, train_code: 'CMRL-ORANGE-02', line_id: 3, capacity: 350, status: 'active' },
     ];
 
     this.schedules = [
@@ -374,6 +406,8 @@ class InMemoryRelationalDB {
       { schedule_id: 6, train_id: 3, train_code: 'CMRL-GREEN-01', line_id: 2, departure_time: '07:30:00', direction: 'southbound', operating_start_date: '2026-01-01', operating_end_date: '2026-12-31', status: 'active' },
       { schedule_id: 7, train_id: 4, train_code: 'CMRL-GREEN-02', line_id: 2, departure_time: '08:30:00', direction: 'northbound', operating_start_date: '2026-01-01', operating_end_date: '2026-12-31', status: 'active' },
       { schedule_id: 8, train_id: 4, train_code: 'CMRL-GREEN-02', line_id: 2, departure_time: '18:15:00', direction: 'northbound', operating_start_date: '2026-01-01', operating_end_date: '2026-12-31', status: 'active' },
+      { schedule_id: 9, train_id: 5, train_code: 'CMRL-ORANGE-01', line_id: 3, departure_time: '06:30:00', direction: 'eastbound', operating_start_date: '2026-01-01', operating_end_date: '2026-12-31', status: 'active' },
+      { schedule_id: 10, train_id: 6, train_code: 'CMRL-ORANGE-02', line_id: 3, departure_time: '09:00:00', direction: 'westbound', operating_start_date: '2026-01-01', operating_end_date: '2026-12-31', status: 'active' },
     ];
 
     this.fare_rules = [

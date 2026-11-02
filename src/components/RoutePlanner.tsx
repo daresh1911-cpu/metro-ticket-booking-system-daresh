@@ -108,13 +108,13 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
   return (
     <div className="w-full max-w-6xl mx-auto space-y-6">
       {/* Route Selector Panel */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2">
-            <Compass className="w-5 h-5 text-cyan-400" />
-            <h2 className="text-xl font-bold font-display text-white">Intelligent Route Planner</h2>
+            <Compass className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">Intelligent Route Planner</h2>
           </div>
-          <span className="text-[11px] font-mono text-slate-400 bg-slate-950 px-2.5 py-1 rounded-md border border-slate-800">
+          <span className="text-[11px] font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-950 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-800">
             Dijkstra & BFS Graph Engine
           </span>
         </div>
@@ -123,13 +123,13 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
             {/* Source */}
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-slate-300 mb-1">Origin Station</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Origin Station</label>
               <div className="relative">
-                <MapPin className="absolute left-3 top-2.5 w-4 h-4 text-emerald-400" />
+                <MapPin className="absolute left-3 top-2.5 w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                 <select
                   value={sourceId}
                   onChange={(e) => setSourceId(parseInt(e.target.value, 10))}
-                  className="w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500 font-medium"
+                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl text-xs text-slate-850 dark:text-slate-100 focus:outline-none focus:border-cyan-500 font-medium"
                 >
                   {stations.map((st) => (
                     <option key={st.station_id} value={st.station_id}>
@@ -145,22 +145,22 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
               <button
                 type="button"
                 onClick={handleSwapStations}
-                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
+                className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors shadow-sm"
                 title="Swap Stations"
               >
-                <Shuffle className="w-4 h-4 text-cyan-400" />
+                <Shuffle className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
               </button>
             </div>
 
             {/* Destination */}
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-slate-300 mb-1">Destination Station</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Destination Station</label>
               <div className="relative">
-                <MapPin className="absolute left-3 top-2.5 w-4 h-4 text-rose-400" />
+                <MapPin className="absolute left-3 top-2.5 w-4 h-4 text-rose-500 dark:text-rose-400" />
                 <select
                   value={destId}
                   onChange={(e) => setDestId(parseInt(e.target.value, 10))}
-                  className="w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500 font-medium"
+                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl text-xs text-slate-850 dark:text-slate-100 focus:outline-none focus:border-cyan-500 font-medium"
                 >
                   {stations.map((st) => (
                     <option key={st.station_id} value={st.station_id}>
@@ -174,22 +174,22 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end pt-1">
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">Travel Date</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Travel Date</label>
               <input
                 type="date"
                 value={travelDate}
                 min={new Date().toISOString().split('T')[0]}
                 onChange={(e) => setTravelDate(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500"
+                className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl text-xs text-slate-850 dark:text-slate-100 focus:outline-none focus:border-cyan-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">Passenger Count</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Passenger Count</label>
               <select
                 value={passengerCount}
                 onChange={(e) => setPassengerCount(parseInt(e.target.value, 10))}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500"
+                className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-xl text-xs text-slate-850 dark:text-slate-100 focus:outline-none focus:border-cyan-500"
               >
                 {[1, 2, 3, 4, 5, 6].map((n) => (
                   <option key={n} value={n}>
@@ -202,7 +202,7 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
             <button
               type="submit"
               disabled={loading}
-              className="py-2.5 px-4 bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 text-slate-950 font-bold text-xs rounded-xl transition-all shadow-md shadow-cyan-500/20 flex items-center justify-center gap-1.5"
+              className="py-2.5 px-4 bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 text-white dark:text-slate-950 font-bold text-xs rounded-xl transition-all shadow-md shadow-cyan-500/20 flex items-center justify-center gap-1.5"
             >
               {loading ? 'Finding Optimal Paths...' : 'Search Metro Routes'}
               <ArrowRight className="w-4 h-4" />
@@ -211,7 +211,7 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
         </form>
 
         {error && (
-          <div className="mt-4 p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs">
+          <div className="mt-4 p-3 rounded-xl bg-rose-100 dark:bg-rose-950/60 border border-rose-300 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs">
             {error}
           </div>
         )}
@@ -221,8 +221,8 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
       {routes.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold font-display text-white">Recommended Route Options</h3>
-            <span className="text-xs text-slate-400">Click a route to inspect stops & highlight on 3D map</span>
+            <h3 className="text-base font-bold font-display text-slate-900 dark:text-white">Recommended Route Options</h3>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Click a route to inspect stops & highlight on 3D map</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -234,41 +234,41 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
                   onClick={() => selectRoute(r)}
                   className={`p-5 rounded-2xl border transition-all cursor-pointer relative ${
                     isSelected
-                      ? 'bg-slate-900 border-cyan-400 shadow-xl shadow-cyan-950/50'
-                      : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'
+                      ? 'bg-cyan-50/70 dark:bg-slate-900 border-cyan-500 dark:border-cyan-400 shadow-xl shadow-cyan-500/10 dark:shadow-cyan-950/50'
+                      : 'bg-white dark:bg-slate-900/60 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
                     <span
                       className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full font-mono ${
                         r.optimizationType === 'fastest'
-                          ? 'bg-cyan-950 text-cyan-300 border border-cyan-800'
+                          ? 'bg-cyan-100 dark:bg-cyan-950 text-cyan-800 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800'
                           : r.optimizationType === 'least_transfers'
-                          ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
-                          : 'bg-amber-950 text-amber-300 border border-amber-800'
+                          ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800'
+                          : 'bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800'
                       }`}
                     >
                       {r.optimizationType.replace('_', ' ')}
                     </span>
-                    <span className="text-base font-bold font-mono text-cyan-300">
+                    <span className="text-base font-bold font-mono text-cyan-700 dark:text-cyan-300">
                       ₹{r.totalFare.toFixed(2)}
                     </span>
                   </div>
 
-                  <h4 className="text-sm font-bold text-slate-100 mb-2 truncate">{r.routeName}</h4>
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-2 truncate">{r.routeName}</h4>
 
-                  <div className="grid grid-cols-3 gap-2 text-xs text-slate-400 mb-4 pb-3 border-b border-slate-800">
+                  <div className="grid grid-cols-3 gap-2 text-xs text-slate-500 dark:text-slate-400 mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
                     <div>
-                      <span className="block text-[11px] text-slate-500">Duration</span>
-                      <span className="font-semibold text-slate-200">{r.totalDurationMinutes} min</span>
+                      <span className="block text-[11px] text-slate-400 dark:text-slate-500">Duration</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-200">{r.totalDurationMinutes} min</span>
                     </div>
                     <div>
-                      <span className="block text-[11px] text-slate-500">Stops</span>
-                      <span className="font-semibold text-slate-200">{r.totalStops}</span>
+                      <span className="block text-[11px] text-slate-400 dark:text-slate-500">Stops</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-200">{r.totalStops}</span>
                     </div>
                     <div>
-                      <span className="block text-[11px] text-slate-500">Transfers</span>
-                      <span className="font-semibold text-slate-200">{r.transferCount}</span>
+                      <span className="block text-[11px] text-slate-400 dark:text-slate-500">Transfers</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-200">{r.transferCount}</span>
                     </div>
                   </div>
 
@@ -277,7 +277,7 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
                       {r.linesUsed.map((l) => (
                         <span
                           key={l.line_id}
-                          className="w-3 h-3 rounded-full"
+                          className="w-3 h-3 rounded-full border border-black/10 dark:border-white/10"
                           style={{ backgroundColor: l.line_color }}
                           title={l.line_name}
                         />
@@ -289,7 +289,7 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
                         e.stopPropagation();
                         onBookRoute(sourceId, destId, travelDate, r);
                       }}
-                      className="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-white dark:text-slate-950 font-bold text-xs transition-colors shadow-sm"
                     >
                       Book Journey
                     </button>
@@ -301,17 +301,17 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
 
           {/* Active Route Step-by-Step Breakdown */}
           {activeRoute && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
                 <div>
-                  <h4 className="text-base font-bold text-white">Journey Stop-by-Stop Breakdown</h4>
-                  <p className="text-xs text-slate-400">
+                  <h4 className="text-base font-bold text-slate-900 dark:text-white">Journey Stop-by-Stop Breakdown</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     {activeRoute.pathStations.length} station checkpoints · {activeRoute.totalDistanceKm} km total corridor
                   </p>
                 </div>
                 <button
                   onClick={() => onBookRoute(sourceId, destId, travelDate, activeRoute)}
-                  className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all flex items-center gap-1.5"
+                  className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-white dark:text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all flex items-center gap-1.5"
                 >
                   Book This Journey (₹{activeRoute.totalFare.toFixed(2)}) <ArrowRight className="w-3.5 h-3.5" />
                 </button>
@@ -336,21 +336,21 @@ export const RoutePlanner: React.FC<RoutePlannerProps> = ({
                             ? 'bg-rose-400 border-rose-500 ring-4 ring-rose-500/20'
                             : isInterchange
                             ? 'bg-cyan-400 border-cyan-500 ring-4 ring-cyan-500/20'
-                            : 'bg-slate-600 border-slate-800'
+                            : 'bg-slate-400 dark:bg-slate-600 border-slate-200 dark:border-slate-800'
                         }`}
                       />
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-slate-100">{st.station_name}</span>
-                          <span className="text-[10px] font-mono text-slate-500">{st.station_code}</span>
+                          <span className="text-xs font-bold text-slate-900 dark:text-slate-100">{st.station_name}</span>
+                          <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{st.station_code}</span>
                           {isInterchange && (
-                            <span className="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
+                            <span className="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded bg-cyan-100 dark:bg-cyan-950 text-cyan-800 dark:text-cyan-400 border border-cyan-300 dark:border-cyan-800">
                               TRANSFER STATION
                             </span>
                           )}
                         </div>
                         {isInterchange && (
-                          <p className="text-[11px] text-amber-300 mt-0.5">
+                          <p className="text-[11px] text-amber-600 dark:text-amber-300 mt-0.5 font-medium">
                             Switch metro lines here (estimated transfer walk: 4 min)
                           </p>
                         )}

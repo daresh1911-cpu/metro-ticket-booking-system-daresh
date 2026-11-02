@@ -92,19 +92,19 @@ export const AdminDashboard: React.FC = () => {
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6">
       {/* Header Banner */}
-      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
+          <div className="w-10 h-10 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-500 dark:text-amber-400">
             <Shield className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold font-display text-white">Administrator Command Console</h2>
-              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white">Administrator Command Console</h2>
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
                 ROLE: ADMIN
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
               Live server-side MySQL queries, revenue analytics, and database schema governance
             </p>
           </div>
@@ -112,7 +112,7 @@ export const AdminDashboard: React.FC = () => {
 
         <button
           onClick={fetchAdminData}
-          className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-colors self-start sm:self-auto"
+          className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-colors self-start sm:self-auto shadow-sm"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh Telemetry
@@ -120,35 +120,35 @@ export const AdminDashboard: React.FC = () => {
       </div>
 
       {/* Sub-Navigation Tabs */}
-      <div className="flex items-center gap-1.5 p-1 bg-slate-900/90 rounded-xl border border-slate-800 text-xs overflow-x-auto">
+      <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-900/90 rounded-xl border border-slate-200 dark:border-slate-800 text-xs overflow-x-auto shadow-sm">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap ${
-            activeTab === 'overview' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'
+          className={`px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap cursor-pointer ${
+            activeTab === 'overview' ? 'bg-cyan-500 text-white dark:text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
           Analytics & Reports
         </button>
         <button
           onClick={() => setActiveTab('users')}
-          className={`px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap ${
-            activeTab === 'users' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'
+          className={`px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap cursor-pointer ${
+            activeTab === 'users' ? 'bg-cyan-500 text-white dark:text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
           Passenger Registry ({users.length})
         </button>
         <button
           onClick={() => setActiveTab('bookings')}
-          className={`px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap ${
-            activeTab === 'bookings' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'
+          className={`px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap cursor-pointer ${
+            activeTab === 'bookings' ? 'bg-cyan-500 text-white dark:text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
           All Bookings ({bookings.length})
         </button>
         <button
           onClick={() => setActiveTab('database')}
-          className={`px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap flex items-center gap-1.5 ${
-            activeTab === 'database' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'
+          className={`px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+            activeTab === 'database' ? 'bg-cyan-500 text-white dark:text-slate-950 shadow-md' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
           <Database className="w-3.5 h-3.5" />
@@ -161,29 +161,29 @@ export const AdminDashboard: React.FC = () => {
         <div className="space-y-6">
           {/* Top Metric Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-              <span className="text-xs text-slate-400 block mb-1">Registered Passengers</span>
-              <span className="text-2xl font-bold font-mono text-white">{metrics?.totalPassengers || 0}</span>
-              <div className="text-[11px] text-slate-500 mt-1">From users table</div>
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Registered Passengers</span>
+              <span className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{metrics?.totalPassengers || 0}</span>
+              <div className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">From users table</div>
             </div>
-            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-              <span className="text-xs text-slate-400 block mb-1">Total System Bookings</span>
-              <span className="text-2xl font-bold font-mono text-cyan-400">{metrics?.totalBookings || 0}</span>
-              <div className="text-[11px] text-emerald-400 mt-1">{metrics?.confirmedBookings || 0} Active / Confirmed</div>
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Total System Bookings</span>
+              <span className="text-2xl font-bold font-mono text-cyan-600 dark:text-cyan-400">{metrics?.totalBookings || 0}</span>
+              <div className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1">{metrics?.confirmedBookings || 0} Active / Confirmed</div>
             </div>
-            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-              <span className="text-xs text-slate-400 block mb-1">Gross Fare Revenue</span>
-              <span className="text-2xl font-bold font-mono text-emerald-400">
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Gross Fare Revenue</span>
+              <span className="text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400">
                 ₹{(metrics?.grossRevenue || 0).toFixed(2)}
               </span>
-              <div className="text-[11px] text-slate-500 mt-1">Aggregated via payments table</div>
+              <div className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">Aggregated via payments table</div>
             </div>
-            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-              <span className="text-xs text-slate-400 block mb-1">Net Realized Revenue</span>
-              <span className="text-2xl font-bold font-mono text-amber-300">
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <span className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Net Realized Revenue</span>
+              <span className="text-2xl font-bold font-mono text-amber-600 dark:text-amber-300">
                 ₹{(metrics?.netRevenue || 0).toFixed(2)}
               </span>
-              <div className="text-[11px] text-rose-400 mt-1">-₹{(metrics?.totalRefunds || 0).toFixed(2)} refunded</div>
+              <div className="text-[11px] text-rose-500 dark:text-rose-400 mt-1">-₹{(metrics?.totalRefunds || 0).toFixed(2)} refunded</div>
             </div>
           </div>
 

@@ -15,6 +15,7 @@ import { TicketVerifier } from './components/TicketVerifier.js';
 import { AuthModal } from './components/AuthModal.js';
 import { BookingModal } from './components/BookingModal.js';
 import { TicketData } from './components/TicketView.js';
+import { useTheme } from './context/ThemeContext.js';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState<string>('home');
@@ -113,8 +114,13 @@ export default function App() {
     setBookingModalOpen(true);
   };
 
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <div className="min-h-screen bg-[#050b14] text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-slate-950">
+    <div className={`min-h-screen flex flex-col font-sans selection:bg-cyan-500 selection:text-slate-950 transition-colors duration-200 ${
+      isDark ? 'bg-[#050b14] text-slate-100' : 'bg-slate-50 text-slate-900'
+    }`}>
       {/* Navigation Bar */}
       <Navbar
         currentTab={currentTab}
@@ -123,6 +129,7 @@ export default function App() {
         onOpenAuth={openAuth}
         onLogout={handleLogout}
         onBookTickets={() => setBookingModalOpen(true)}
+        stationsCount={stations.length || 50}
       />
 
       {/* Main Content Viewport */}
@@ -150,11 +157,15 @@ export default function App() {
 
         {currentTab === 'network' && (
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl">
+            <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 border rounded-2xl shadow-xl transition-colors ${
+              isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-slate-200/50'
+            }`}>
               <div>
-                <h2 className="text-xl font-bold font-display text-white">Interactive 3D Metro Network</h2>
-                <p className="text-xs text-slate-400 mt-1">
-                  Spatial visualization of 41 Chennai Metro stations across Blue & Green lines with live interchange hubs.
+                <h2 className={`text-xl font-bold font-display ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                  Interactive 3D Metro Network
+                </h2>
+                <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Spatial visualization of {stations.length || 50} Chennai Metro stations across Blue, Green & Orange lines with live interchange hubs.
                 </p>
               </div>
               <button
@@ -195,6 +206,10 @@ export default function App() {
           <PassengerDashboard
             user={user}
             onBookNew={() => setBookingModalOpen(true)}
+            onNavigateToVerify={(token) => {
+              setVerifyToken(token);
+              setCurrentTab('verify');
+            }}
           />
         )}
 
@@ -204,19 +219,21 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950/80 py-8 px-4 text-center text-xs text-slate-400">
+      <footer className={`border-t py-8 px-4 text-center text-xs transition-colors ${
+        isDark ? 'border-slate-900 bg-slate-950/80 text-slate-400' : 'border-slate-200 bg-white/90 text-slate-500 shadow-inner'
+      }`}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-200">MetroX 3D</span>
-            <span className="text-slate-600">·</span>
+            <span className={`font-bold ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>MetroX 3D</span>
+            <span className={isDark ? 'text-slate-600' : 'text-slate-400'}>·</span>
             <span>Chennai Metro Rail Limited (CMRL) Reservation & Management System</span>
           </div>
-          <div className="flex items-center gap-4 text-[11px] text-slate-400">
-            <span>MySQL 8 InnoDB</span>
+          <div className={`flex items-center gap-4 text-[11px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+            <span>Phase 1 & Phase 2 Corridor 4 (50 Stations)</span>
             <span>·</span>
             <span>Three.js WebGL</span>
             <span>·</span>
-            <span>JWT & bcrypt Auth</span>
+            <span>Automated QR Gate</span>
           </div>
         </div>
       </footer>

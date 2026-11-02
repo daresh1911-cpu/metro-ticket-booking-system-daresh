@@ -64,9 +64,14 @@ async function runTestSuite() {
   assert(!isAdmin, 'Scenario 6: Admin endpoint access blocked for standard passenger role');
 
   // 7. Successful route search
-  // Central Station (1) to Airport T2 (8)
+  // Wimco Nagar Depot (1) to Mannadi (8)
   const routes = routeService.searchRoutes(1, 8, 1);
   assert(routes.length > 0 && routes[0].totalStops > 0, 'Scenario 7: Successful graph-based route search between stations');
+
+  // Verify routing for newly added Phase 2 Corridor 4 stations (e.g. Poonamallee Bypass 42 to Vadapalani 25)
+  const c4Routes = routeService.searchRoutes(42, 25, 1);
+  assert(c4Routes.length > 0 && c4Routes[0].pathStations.some((s) => s.station_id === 42), 'Scenario 7b: Routing through newly added Corridor 4 stations (Poonamallee Bypass)');
+
 
   // 8. Invalid source and destination (Same station)
   let sameStationErrorCaught = false;

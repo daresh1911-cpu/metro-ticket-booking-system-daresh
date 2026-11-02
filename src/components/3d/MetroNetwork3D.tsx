@@ -5,6 +5,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { useTheme } from '../../context/ThemeContext.js';
 
 export interface NetworkStation {
   station_id: number;
@@ -47,13 +48,16 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
   const mountRef = useRef<HTMLDivElement>(null);
   const [activeStation, setActiveStation] = useState<NetworkStation | null>(null);
   const [viewMode, setViewMode] = useState<'3d' | '2d'>('3d');
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   // Map Chennai geographic coordinates to 3D spatial world plane (-15 to 15)
+  // Extended bounds to cover Poonamallee Bypass (lng 80.076) westward to Wimco Nagar (lng 80.306) eastward
   const mapCoordsTo3D = (lat: number, lng: number): [number, number, number] => {
-    const latMin = 12.97, latMax = 13.19;
-    const lngMin = 80.15, lngMax = 80.32;
-    const x = ((lng - lngMin) / (lngMax - lngMin) - 0.5) * 28;
-    const z = -((lat - latMin) / (latMax - latMin) - 0.5) * 28;
+    const latMin = 12.96, latMax = 13.20;
+    const lngMin = 80.05, lngMax = 80.33;
+    const x = ((lng - lngMin) / (lngMax - lngMin) - 0.5) * 30;
+    const z = -((lat - latMin) / (latMax - latMin) - 0.5) * 30;
     return [x, 0, z];
   };
 
@@ -65,8 +69,8 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
 
     // Scene & Camera
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('#030712');
-    scene.fog = new THREE.FogExp2('#030712', 0.015);
+    scene.background = new THREE.Color(isDark ? '#030712' : '#f8fafc');
+    scene.fog = new THREE.FogExp2(isDark ? '#030712' : '#f8fafc', 0.012);
 
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -74,7 +78,7 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
       0.1,
       1000
     );
-    camera.position.set(0, 22, 22);
+    camera.position.set(0, 24, 24);
     camera.lookAt(0, 0, 0);
 
     // Renderer
@@ -84,15 +88,15 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
     container.appendChild(renderer.domElement);
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight('#ffffff', 0.8);
+    const ambientLight = new THREE.AmbientLight(isDark ? '#ffffff' : '#ffffff', isDark ? 0.8 : 1.2);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight('#38bdf8', 1.5);
+    const dirLight = new THREE.DirectionalLight('#38bdf8', isDark ? 1.5 : 1.2);
     dirLight.position.set(10, 20, 10);
     scene.add(dirLight);
 
     // Grid Floor
-    const grid = new THREE.GridHelper(36, 36, '#0f2744', '#091528');
+    const grid = new THREE.GridHelper(36, 36, isDark ? '#0f2744' : '#94a3b8', isDark ? '#091528' : '#e2e8f0');
     grid.position.y = -0.05;
     scene.add(grid);
 
@@ -288,17 +292,23 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
       }
       renderer.dispose();
     };
-  }, [stations, connections, highlightStationIds, selectedSourceId, selectedDestId, viewMode]);
+  }, [stations, connections, highlightStationIds, selectedSourceId, selectedDestId, viewMode, theme]);
 
   return (
-    <div className="relative w-full h-[520px] rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
+    <div className={`relative w-full h-[520px] rounded-2xl overflow-hidden border transition-colors ${
+      isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-100 border-slate-300 shadow-inner'
+    }`}>
       {/* View Controls Overlay */}
-      <div className="absolute top-4 left-4 z-20 flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-3 py-2 rounded-xl border border-slate-700/60 text-xs">
-        <span className="text-slate-400 font-medium">View Mode:</span>
+      <div className={`absolute top-4 left-4 z-20 flex items-center gap-2 backdrop-blur-md px-3 py-2 rounded-xl border text-xs shadow-md ${
+        isDark ? 'bg-slate-900/80 border-slate-700/60 text-slate-100' : 'bg-white/90 border-slate-200 text-slate-800'
+      }`}>
+        <span className={isDark ? 'text-slate-400 font-medium' : 'text-slate-500 font-medium'}>View:</span>
         <button
           onClick={() => setViewMode('3d')}
           className={`px-2.5 py-1 rounded-md transition-colors ${
-            viewMode === '3d' ? 'bg-cyan-600 text-white font-semibold' : 'text-slate-300 hover:bg-slate-800'
+            viewMode === '3d'
+              ? 'bg-cyan-600 text-white font-semibold shadow-xs'
+              : (isDark ? 'text-slate-300 hover:bg-slate-800' : 'text-slate-700 hover:bg-slate-100')
           }`}
         >
           3D Spatial Network
@@ -306,25 +316,33 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
         <button
           onClick={() => setViewMode('2d')}
           className={`px-2.5 py-1 rounded-md transition-colors ${
-            viewMode === '2d' ? 'bg-cyan-600 text-white font-semibold' : 'text-slate-300 hover:bg-slate-800'
+            viewMode === '2d'
+              ? 'bg-cyan-600 text-white font-semibold shadow-xs'
+              : (isDark ? 'text-slate-300 hover:bg-slate-800' : 'text-slate-700 hover:bg-slate-100')
           }`}
         >
           2D Schematic Map
         </button>
       </div>
 
-      <div className="absolute top-4 right-4 z-20 flex items-center gap-3 bg-slate-900/80 backdrop-blur-md px-4 py-2 rounded-xl border border-slate-700/60 text-xs">
+      <div className={`absolute top-4 right-4 z-20 hidden sm:flex flex-wrap items-center gap-3 backdrop-blur-md px-4 py-2 rounded-xl border text-xs shadow-md ${
+        isDark ? 'bg-slate-900/80 border-slate-700/60 text-slate-300' : 'bg-white/90 border-slate-200 text-slate-700'
+      }`}>
         <div className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-[#0284c7]" />
-          <span className="text-slate-300">CMRL Blue Line (Airport)</span>
+          <span>Blue Line</span>
         </div>
         <div className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-[#10b981]" />
-          <span className="text-slate-300">CMRL Green Line (CMBT / St. Thomas)</span>
+          <span>Green Line</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#38bdf8] ring-1 ring-white/50" />
-          <span className="text-slate-300">Central & Alandur Interchanges</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-[#f97316]" />
+          <span className="font-semibold text-orange-500">Orange Line (Poonamallee)</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#38bdf8] ring-1 ring-cyan-400" />
+          <span>Interchanges (Central, Alandur, Vadapalani)</span>
         </div>
       </div>
 
@@ -332,18 +350,32 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
         <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
       ) : (
         /* 2D Schematic Fallback Map */
-        <div className="w-full h-full p-6 flex flex-col justify-between overflow-y-auto bg-slate-950">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-cyan-800/40">
-              <h4 className="text-sm font-semibold text-cyan-400 mb-1">Corridor 1 · Blue Line (Wimco Nagar Depot ↔ Chennai Airport)</h4>
-              <p className="text-xs text-slate-400">
-                Wimco Nagar Depot → Tollgate → Washermanpet → High Court → Central MAS (Hub) → LIC → Saidapet → Guindy → Alandur (Hub) → Meenambakkam → Airport
+        <div className={`w-full h-full p-6 flex flex-col justify-between overflow-y-auto ${
+          isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+        }`}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+            <div className={`p-3.5 rounded-xl border ${
+              isDark ? 'bg-slate-900/60 border-cyan-800/40' : 'bg-white border-blue-200 shadow-xs'
+            }`}>
+              <h4 className="text-xs font-bold text-blue-500 mb-1">Corridor 1 · Blue Line (26 Stations)</h4>
+              <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                Wimco Nagar Depot ↔ High Court ↔ Central MAS ↔ Alandur ↔ Airport
               </p>
             </div>
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-emerald-800/40">
-              <h4 className="text-sm font-semibold text-emerald-400 mb-1">Corridor 2 · Green Line (Chennai Central ↔ St. Thomas Mount via CMBT)</h4>
-              <p className="text-xs text-slate-400">
-                Central MAS (Hub) → Egmore → Kilpauk → Shenoy Nagar → Anna Nagar Tower → Thirumangalam → Koyambedu → CMBT → Vadapalani → Ashok Nagar → Alandur (Hub) → St. Thomas Mount
+            <div className={`p-3.5 rounded-xl border ${
+              isDark ? 'bg-slate-900/60 border-emerald-800/40' : 'bg-white border-emerald-200 shadow-xs'
+            }`}>
+              <h4 className="text-xs font-bold text-emerald-500 mb-1">Corridor 2 · Green Line (17 Stations)</h4>
+              <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                Central MAS ↔ Shenoy Nagar ↔ CMBT ↔ Vadapalani ↔ St. Thomas Mount
+              </p>
+            </div>
+            <div className={`p-3.5 rounded-xl border ${
+              isDark ? 'bg-slate-900/60 border-orange-800/40' : 'bg-white border-orange-200 shadow-xs'
+            }`}>
+              <h4 className="text-xs font-bold text-orange-500 mb-1">Corridor 4 · Orange Line (10 Stations)</h4>
+              <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                Poonamallee Bypass ↔ Kumananchavadi ↔ Porur ↔ Vadapalani Interchange
               </p>
             </div>
           </div>
@@ -354,12 +386,16 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
                 onClick={() => setActiveStation(st)}
                 className={`p-2.5 rounded-lg text-left text-xs transition-colors border ${
                   activeStation?.station_id === st.station_id
-                    ? 'border-cyan-400 bg-cyan-950/40 text-cyan-200'
-                    : 'border-slate-800 bg-slate-900/40 text-slate-300 hover:border-slate-700'
+                    ? 'border-cyan-400 bg-cyan-500/15 text-cyan-500 font-bold'
+                    : (isDark
+                        ? 'border-slate-800 bg-slate-900/40 text-slate-300 hover:border-slate-700'
+                        : 'border-slate-200 bg-white text-slate-800 hover:border-slate-300 shadow-xs')
                 }`}
               >
-                <div className="font-semibold">{st.station_name}</div>
-                <div className="text-[11px] text-slate-500">{st.station_code} {st.is_interchange ? '· Interchange' : ''}</div>
+                <div className="font-semibold truncate">{st.station_name}</div>
+                <div className={`text-[11px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                  {st.station_code} {st.is_interchange ? '· Interchange' : ''}
+                </div>
               </button>
             ))}
           </div>
@@ -368,49 +404,57 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
 
       {/* Interactive Station Inspection Card */}
       {activeStation && (
-        <div className="absolute bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 z-30 p-4 rounded-xl bg-slate-900/95 backdrop-blur-md border border-cyan-500/40 shadow-2xl">
+        <div className={`absolute bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 z-30 p-4 rounded-xl backdrop-blur-md border shadow-2xl transition-all ${
+          isDark
+            ? 'bg-slate-900/95 border-cyan-500/40 text-slate-100 shadow-black'
+            : 'bg-white/95 border-cyan-500/40 text-slate-900 shadow-slate-300'
+        }`}>
           <div className="flex items-start justify-between mb-2">
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-xs font-mono text-cyan-400">{activeStation.station_code}</span>
+                <span className="text-xs font-mono font-bold text-cyan-500">{activeStation.station_code}</span>
                 {activeStation.is_interchange && (
-                  <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">
+                  <span className={`text-[10px] uppercase font-bold px-1.5 py-0.5 rounded border ${
+                    isDark ? 'bg-cyan-950 text-cyan-300 border-cyan-800' : 'bg-cyan-50 text-cyan-800 border-cyan-200'
+                  }`}>
                     Interchange Hub
                   </span>
                 )}
               </div>
-              <h4 className="text-base font-bold text-slate-100">{activeStation.station_name}</h4>
+              <h4 className={`text-base font-bold ${isDark ? 'text-slate-100' : 'text-slate-900'}`}>
+                {activeStation.station_name}
+              </h4>
             </div>
             <button
               onClick={() => setActiveStation(null)}
-              className="text-slate-400 hover:text-slate-200 text-sm"
+              className={`text-sm p-1 ${isDark ? 'text-slate-400 hover:text-slate-200' : 'text-slate-500 hover:text-slate-800'}`}
               aria-label="Close station details"
             >
               ✕
             </button>
           </div>
 
-          <div className="text-xs text-slate-300 mb-3 space-y-1">
-            <p><span className="text-slate-500">Coordinates:</span> {activeStation.latitude.toFixed(4)}°N, {activeStation.longitude.toFixed(4)}°E</p>
-            <p><span className="text-slate-500">Status:</span> <span className="text-emerald-400 font-medium">Operational</span></p>
+          <div className={`text-xs mb-3 space-y-1 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+            <p><span className="text-slate-400">Coordinates:</span> {activeStation.latitude.toFixed(4)}°N, {activeStation.longitude.toFixed(4)}°E</p>
+            <p><span className="text-slate-400">Status:</span> <span className="text-emerald-500 font-semibold">Operational CMRL</span></p>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+          <div className={`grid grid-cols-2 gap-2 pt-2 border-t ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
             <button
               onClick={() => {
                 onSelectStation?.(activeStation, 'source');
                 setActiveStation(null);
               }}
-              className="px-3 py-1.5 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 text-white font-medium text-xs text-center transition-colors"
+              className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs text-center transition-colors shadow-xs"
             >
-              Set as Origin
+              Set Origin
             </button>
             <button
               onClick={() => {
                 onSelectStation?.(activeStation, 'destination');
                 setActiveStation(null);
               }}
-              className="px-3 py-1.5 rounded-lg bg-rose-600/90 hover:bg-rose-500 text-white font-medium text-xs text-center transition-colors"
+              className="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-xs text-center transition-colors shadow-xs"
             >
               Set Destination
             </button>
@@ -419,8 +463,10 @@ export const MetroNetwork3D: React.FC<MetroNetwork3DProps> = ({
       )}
 
       {/* Helper hint */}
-      <div className="absolute bottom-3 left-4 z-10 text-[11px] text-slate-500 hidden md:block pointer-events-none">
-        Tip: Click any station node to inspect line details or set trip endpoints. Drag to rotate 3D camera.
+      <div className={`absolute bottom-3 left-4 z-10 text-[11px] hidden md:block pointer-events-none ${
+        isDark ? 'text-slate-500' : 'text-slate-600'
+      }`}>
+        Tip: Click any station node to inspect details or set journey endpoints. Drag to rotate 3D camera.
       </div>
     </div>
   );

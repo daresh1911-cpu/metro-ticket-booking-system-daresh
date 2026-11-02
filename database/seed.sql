@@ -33,10 +33,11 @@ INSERT INTO users (user_id, full_name, email, phone, password_hash, role, accoun
 
 -- 2. Metro Lines (Chennai Metro Rail Limited - CMRL)
 INSERT INTO metro_lines (line_id, line_name, line_code, line_color, status) VALUES
-(1, 'Blue Line (Corridor 1: Washermanpet to Chennai Airport)', 'L1', '#0284c7', 'active'),
-(2, 'Green Line (Corridor 2: Chennai Central to St. Thomas Mount)', 'L2', '#10b981', 'active');
+(1, 'Blue Line (Corridor 1: Wimco Nagar Depot to Chennai Airport)', 'L1', '#0284c7', 'active'),
+(2, 'Green Line (Corridor 2: Chennai Central to St. Thomas Mount)', 'L2', '#10b981', 'active'),
+(3, 'Orange Line (Corridor 4: Poonamallee Bypass to Vadapalani)', 'L4', '#f97316', 'active');
 
--- 3. Stations (41 Authentic Chennai Metro Rail Stations)
+-- 3. Stations (50 Authentic Chennai Metro Rail Stations)
 INSERT INTO stations (station_id, station_name, station_code, latitude, longitude, status, is_interchange) VALUES
 (1, 'Washermanpet Metro', 'WPT', 13.1065, 80.2830, 'active', FALSE),
 (2, 'Mannadi Metro', 'MND', 13.0970, 80.2880, 'active', FALSE),
@@ -62,7 +63,7 @@ INSERT INTO stations (station_id, station_name, station_code, latitude, longitud
 (22, 'Thirumangalam Metro', 'TMG', 13.0855, 80.1990, 'active', FALSE),
 (23, 'Koyambedu Metro', 'KYM', 13.0730, 80.1950, 'active', FALSE),
 (24, 'Puratchi Thalaivi Dr. J. Jayalalithaa CMBT Metro', 'CBT', 13.0694, 80.1948, 'active', FALSE),
-(25, 'Vadapalani Metro', 'VAD', 13.0504, 80.2121, 'active', FALSE),
+(25, 'Vadapalani Metro', 'VAD', 13.0504, 80.2121, 'active', TRUE),
 (26, 'Ashok Nagar Metro', 'ASH', 13.0360, 80.2116, 'active', FALSE),
 (27, 'St. Thomas Mount Metro', 'STM', 12.9950, 80.1985, 'active', FALSE),
 (28, "Pachaiyappa's College Metro", 'PAC', 13.0768, 80.2335, 'active', FALSE),
@@ -78,7 +79,16 @@ INSERT INTO stations (station_id, station_name, station_code, latitude, longitud
 (38, 'Tiruvottriyur Theradi Metro', 'TTD', 13.1490, 80.2985, 'active', FALSE),
 (39, 'Tiruvottriyur Metro', 'TVT', 13.1600, 80.3005, 'active', FALSE),
 (40, 'Wimco Nagar Metro', 'WMN', 13.1695, 80.3015, 'active', FALSE),
-(41, 'Wimco Nagar Depot Metro', 'WND', 13.1790, 80.3060, 'active', FALSE);
+(41, 'Wimco Nagar Depot Metro', 'WND', 13.1790, 80.3060, 'active', FALSE),
+(42, 'Poonamallee Bypass Metro', 'PBP', 13.0540, 80.0760, 'active', FALSE),
+(43, 'Poonamallee Bus Terminus Metro', 'PMT', 13.0515, 80.0890, 'active', FALSE),
+(44, 'Karayanchavadi Metro', 'KRC', 13.0498, 80.1012, 'active', FALSE),
+(45, 'Kumananchavadi Metro', 'KMN', 13.0475, 80.1118, 'active', FALSE),
+(46, 'Kattupakkam Metro', 'KTP', 13.0428, 80.1265, 'active', FALSE),
+(47, 'Iyyappanthangal Metro', 'IYP', 13.0378, 80.1415, 'active', FALSE),
+(48, 'Porur Bypass Metro', 'POR', 13.0335, 80.1583, 'active', FALSE),
+(49, 'Alwarthirunagar Metro', 'ATN', 13.0392, 80.1691, 'active', FALSE),
+(50, 'Valasaravakkam Metro', 'VSK', 13.0416, 80.1772, 'active', FALSE);
 
 -- 4. Line Stations
 INSERT INTO line_stations (line_id, station_id, sequence_no, distance_from_previous_km) VALUES
@@ -89,7 +99,9 @@ INSERT INTO line_stations (line_id, station_id, sequence_no, distance_from_previ
 (1, 12, 21, 1.00), (1, 13, 22, 1.40), (1, 14, 23, 1.80), (1, 32, 24, 1.30), (1, 15, 25, 1.50), (1, 16, 26, 1.90),
 (2, 4, 1, 0.00), (2, 17, 2, 1.60), (2, 18, 3, 1.20), (2, 19, 4, 1.30), (2, 28, 5, 1.20),
 (2, 20, 6, 1.10), (2, 29, 7, 1.30), (2, 21, 8, 1.40), (2, 22, 9, 1.30), (2, 23, 10, 1.40),
-(2, 24, 11, 1.10), (2, 30, 12, 1.40), (2, 25, 13, 1.50), (2, 26, 14, 1.70), (2, 31, 15, 1.60), (2, 14, 16, 2.10), (2, 27, 17, 1.30);
+(2, 24, 11, 1.10), (2, 30, 12, 1.40), (2, 25, 13, 1.50), (2, 26, 14, 1.70), (2, 31, 15, 1.60), (2, 14, 16, 2.10), (2, 27, 17, 1.30),
+(3, 42, 1, 0.00), (3, 43, 2, 1.40), (3, 44, 3, 1.30), (3, 45, 4, 1.20), (3, 46, 5, 1.50),
+(3, 47, 6, 1.60), (3, 48, 7, 1.70), (3, 49, 8, 1.20), (3, 50, 9, 1.10), (3, 25, 10, 2.10);
 
 -- 5. Station Connections (Bidirectional for route graph)
 INSERT INTO station_connections (from_station_id, to_station_id, travel_minutes, distance_km, line_id) VALUES
@@ -113,14 +125,21 @@ INSERT INTO station_connections (from_station_id, to_station_id, travel_minutes,
 (22, 23, 2, 1.40, 2), (23, 22, 2, 1.40, 2), (23, 24, 2, 1.10, 2), (24, 23, 2, 1.10, 2),
 (24, 30, 2, 1.40, 2), (30, 24, 2, 1.40, 2), (30, 25, 2, 1.50, 2), (25, 30, 2, 1.50, 2),
 (25, 26, 3, 1.70, 2), (26, 25, 3, 1.70, 2), (26, 31, 2, 1.60, 2), (31, 26, 2, 1.60, 2),
-(31, 14, 3, 2.10, 2), (14, 31, 3, 2.10, 2), (14, 27, 2, 1.30, 2), (27, 14, 2, 1.30, 2);
+(31, 14, 3, 2.10, 2), (14, 31, 3, 2.10, 2), (14, 27, 2, 1.30, 2), (27, 14, 2, 1.30, 2),
+(42, 43, 2, 1.40, 3), (43, 42, 2, 1.40, 3), (43, 44, 2, 1.30, 3), (44, 43, 2, 1.30, 3),
+(44, 45, 2, 1.20, 3), (45, 44, 2, 1.20, 3), (45, 46, 2, 1.50, 3), (46, 45, 2, 1.50, 3),
+(46, 47, 2, 1.60, 3), (47, 46, 2, 1.60, 3), (47, 48, 2, 1.70, 3), (48, 47, 2, 1.70, 3),
+(48, 49, 2, 1.20, 3), (49, 48, 2, 1.20, 3), (49, 50, 2, 1.10, 3), (50, 49, 2, 1.10, 3),
+(50, 25, 3, 2.10, 3), (25, 50, 3, 2.10, 3);
 
 -- 6. Trains
 INSERT INTO trains (train_id, train_code, line_id, capacity, status) VALUES
 (1, 'CMRL-BLUE-01', 1, 400, 'active'),
 (2, 'CMRL-BLUE-02', 1, 400, 'active'),
 (3, 'CMRL-GREEN-01', 2, 350, 'active'),
-(4, 'CMRL-GREEN-02', 2, 350, 'active');
+(4, 'CMRL-GREEN-02', 2, 350, 'active'),
+(5, 'CMRL-ORANGE-01', 3, 350, 'active'),
+(6, 'CMRL-ORANGE-02', 3, 350, 'active');
 
 -- 7. Schedules
 INSERT INTO schedules (schedule_id, train_id, departure_time, direction, operating_start_date, operating_end_date, status) VALUES
@@ -131,7 +150,9 @@ INSERT INTO schedules (schedule_id, train_id, departure_time, direction, operati
 (5, 3, '06:00:00', 'southbound', '2026-01-01', '2026-12-31', 'active'),
 (6, 3, '07:30:00', 'southbound', '2026-01-01', '2026-12-31', 'active'),
 (7, 4, '08:30:00', 'northbound', '2026-01-01', '2026-12-31', 'active'),
-(8, 4, '18:15:00', 'northbound', '2026-01-01', '2026-12-31', 'active');
+(8, 4, '18:15:00', 'northbound', '2026-01-01', '2026-12-31', 'active'),
+(9, 5, '06:30:00', 'eastbound', '2026-01-01', '2026-12-31', 'active'),
+(10, 6, '09:00:00', 'westbound', '2026-01-01', '2026-12-31', 'active');
 
 -- 8. Fare Rules
 INSERT INTO fare_rules (fare_rule_id, pricing_method, base_fare, per_stop_rate, per_km_rate, concession_discount_percent, effective_from, status) VALUES

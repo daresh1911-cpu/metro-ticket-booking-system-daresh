@@ -14,9 +14,10 @@ import * as THREE from 'three';
 
 interface HeroMetroSceneProps {
   reducedMotion?: boolean;
+  theme?: 'light' | 'dark';
 }
 
-export const HeroMetroScene: React.FC<HeroMetroSceneProps> = ({ reducedMotion = false }) => {
+export const HeroMetroScene: React.FC<HeroMetroSceneProps> = ({ reducedMotion = false, theme = 'dark' }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [webglSupported, setWebglSupported] = useState(true);
 
@@ -39,10 +40,15 @@ export const HeroMetroScene: React.FC<HeroMetroSceneProps> = ({ reducedMotion = 
 
     let animationFrameId: number;
 
+    const isLight = theme === 'light';
+    const bgColor = isLight ? '#f8fafc' : '#030712';
+    const groundColor = isLight ? '#cbd5e1' : '#080e1a';
+    const gridMinorColor = isLight ? '#e2e8f0' : '#0f172a';
+
     // 1. Scene & Camera
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('#030712');
-    scene.fog = new THREE.FogExp2('#030712', 0.025);
+    scene.background = new THREE.Color(bgColor);
+    scene.fog = new THREE.FogExp2(bgColor, 0.025);
 
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -58,18 +64,18 @@ export const HeroMetroScene: React.FC<HeroMetroSceneProps> = ({ reducedMotion = 
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = isLight ? 1.0 : 1.2;
     container.appendChild(renderer.domElement);
 
     // 3. Lighting
-    const ambientLight = new THREE.AmbientLight('#0f172a', 1.5);
+    const ambientLight = new THREE.AmbientLight(isLight ? '#ffffff' : '#0f172a', isLight ? 2.2 : 1.5);
     scene.add(ambientLight);
 
-    const cyanKeyLight = new THREE.DirectionalLight('#06b6d4', 2.0);
+    const cyanKeyLight = new THREE.DirectionalLight('#06b6d4', isLight ? 2.5 : 2.0);
     cyanKeyLight.position.set(5, 8, 5);
     scene.add(cyanKeyLight);
 
-    const blueFillLight = new THREE.DirectionalLight('#3b82f6', 1.2);
+    const blueFillLight = new THREE.DirectionalLight('#3b82f6', isLight ? 1.5 : 1.2);
     blueFillLight.position.set(-6, 4, 3);
     scene.add(blueFillLight);
 
@@ -80,7 +86,7 @@ export const HeroMetroScene: React.FC<HeroMetroSceneProps> = ({ reducedMotion = 
     // 4. Track & Ground Plane
     const groundGeo = new THREE.PlaneGeometry(80, 80);
     const groundMat = new THREE.MeshStandardMaterial({
-      color: '#080e1a',
+      color: groundColor,
       roughness: 0.8,
       metalness: 0.2,
     });
@@ -90,7 +96,7 @@ export const HeroMetroScene: React.FC<HeroMetroSceneProps> = ({ reducedMotion = 
     scene.add(ground);
 
     // Grid Floor
-    const gridHelper = new THREE.GridHelper(60, 40, '#0284c7', '#0f172a');
+    const gridHelper = new THREE.GridHelper(60, 40, '#0284c7', gridMinorColor);
     gridHelper.position.y = -0.19;
     scene.add(gridHelper);
 
@@ -327,7 +333,7 @@ export const HeroMetroScene: React.FC<HeroMetroSceneProps> = ({ reducedMotion = 
       });
       renderer.dispose();
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, theme]);
 
   if (!webglSupported) {
     return (
